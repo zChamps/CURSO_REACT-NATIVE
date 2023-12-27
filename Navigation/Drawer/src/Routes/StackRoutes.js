@@ -3,26 +3,33 @@ import { ScrollView, StyleSheet, Text, View, FlatList, Switch, TextInput, Button
 
 import { useState, useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Feather } from '@expo/vector-icons';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './src/Pages/Home';
-import About from './src/Pages/About';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+import Home from '../Pages/Home';
+import About from '../Pages/About';
+import Detalhes from "../Pages/Detalhes"
 
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-
-export default function App() {
+export default function StackRoutes() {
 
   return (
 
-    <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} options={{title: "Home Page", headerStyle:{backgroundColor: "aqua"}, headerTintColor: "white", headerShown: true}}/>
-      <Stack.Screen name="About" component={About} />
+    <Stack.Navigator >
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Detalhes"
+        component={Detalhes}
+      />
+      
     </Stack.Navigator>
-  </NavigationContainer>
   );
 }
 
