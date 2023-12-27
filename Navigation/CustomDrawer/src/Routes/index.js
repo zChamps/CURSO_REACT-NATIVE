@@ -12,6 +12,7 @@ const Drawer = createDrawerNavigator();
 export default function Routes(){
     return(
       <Drawer.Navigator 
+        drawerContent={CustomDrawer}
         screenOptions={{
           headerShown: false,
   
