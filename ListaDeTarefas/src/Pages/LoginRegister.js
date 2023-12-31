@@ -22,7 +22,7 @@ export default function LoginRegister() {
     if (uid !== ""){
       navigation.navigate("Home", {uid: uid})
     }
-  })
+  }, [uid])
 
   async function cadastrar() {
     const auth = getAuth();
@@ -32,9 +32,7 @@ export default function LoginRegister() {
         const user = userCredential.user;
         const db = getDatabase()
 
-        set(ref(db, `users/${user.uid}`), {
-          email: user.email
-        });
+        
         setUid(user.uid)
 
 
@@ -42,12 +40,22 @@ export default function LoginRegister() {
 
 
 
-        alert(`Usuário criado com sucesso: ${user.uid}`)
+        alert(`Usuário criado com sucesso!`)
       })
       .catch((error) => {
         console.log("ERRO_CATCH_CADASTRO: ", error)
+
+
+        if (error.code === 'auth/email-already-in-use') {
+          // Exibe um aviso ao usuário informando que o e-mail já está em uso
+          alert('Erro: Este e-mail já está cadastrado. Por favor, use outro endereço de e-mail.');
         // ..
-      });
+      };
+        if (error.code === 'auth/weak-password') {
+          // Exibe um aviso ao usuário informando que o e-mail já está em uso
+          alert('Erro: A senha cadastrada é fraca, crie uma senha com pelo menos 6 caracteres.');
+        // ..
+      }});
 
     // setEmail("")
     // setPassword("")
@@ -134,7 +142,11 @@ export default function LoginRegister() {
             />
 
             <Text style={styles.LoginCadastro} onPress={() => setLoginRegister(!loginRegister)}>Fazer Cadastro</Text>
-
+            <Text onPress={() => {
+              setEmail("teste@teste.com")
+              setPassword("123123")
+              logar()
+            }}>Fazer Login Direto</Text>
           </View>
 
         )
