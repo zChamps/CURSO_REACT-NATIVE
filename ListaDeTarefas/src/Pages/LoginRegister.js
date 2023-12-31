@@ -97,6 +97,7 @@ export default function LoginRegister() {
               onChangeText={(texto) => setEmail(texto)}
               value={email}
               keyboardType="email-address"
+              placeholder='Digite seu Email'
             />
 
             <Text style={styles.texto}>Senha</Text>
@@ -105,6 +106,7 @@ export default function LoginRegister() {
               underlineColorAndroid="transparent"
               onChangeText={(texto) => setPassword(texto)}
               value={password}
+              placeholder='Digite sua Senha'
             />
 
             <Button
@@ -126,6 +128,7 @@ export default function LoginRegister() {
               onChangeText={(texto) => setEmail(texto)}
               value={email}
               keyboardType="email-address"
+              placeholder='Digite seu Email'
             />
 
             <Text style={styles.texto}>Senha</Text>
@@ -134,6 +137,7 @@ export default function LoginRegister() {
               underlineColorAndroid="transparent"
               onChangeText={(texto) => setPassword(texto)}
               value={password}
+              placeholder='Digite sua Senha'
             />
 
             <Button
@@ -142,11 +146,6 @@ export default function LoginRegister() {
             />
 
             <Text style={styles.LoginCadastro} onPress={() => setLoginRegister(!loginRegister)}>Fazer Cadastro</Text>
-            <Text onPress={() => {
-              setEmail("teste@teste.com")
-              setPassword("123123")
-              logar()
-            }}>Fazer Login Direto</Text>
           </View>
 
         )
