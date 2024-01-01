@@ -2,12 +2,14 @@ import { View, Text, Button, StyleSheet, TouchableWithoutFeedback, FlatList, Tex
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Feather } from '@expo/vector-icons';
-import React, { useState, useEffect, useRef } from 'react';
-
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { CartContext } from '../Context/CartContext';
 
 const Home = () => {
   const navigation = useNavigation();
   const route = useRoute();
+
+  const {productsCart, setProductsCart} = useContext(CartContext)
 
   const [products, setProducts] = useState([
     {
@@ -37,12 +39,12 @@ const Home = () => {
     },
   ])
 
-  const [productsCart, setProductsCart] = useState([])
+
   const [numberProductsCart, setNumberProductsCart] = useState(0)
 
 
   const handleCartClick = () => {
-    navigation.navigate("Carrinho", productsCart)
+    navigation.navigate("Carrinho")
   }
 
 
@@ -54,11 +56,15 @@ const Home = () => {
 
 
   const handleAddProduct = (produto) => {
-    setProductsCart([...productsCart, produto])
+    if(!productsCart.includes(produto)){
+      setProductsCart([...productsCart, produto])
+    }
+
+    
     
   }
 
-  console.log(productsCart)
+  // console.log(productsCart)
 
   return (
     <View style={styles.container}>
