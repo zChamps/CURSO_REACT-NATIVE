@@ -9,29 +9,17 @@ console.disableYellowBox = true;
 export default function Carrinho() {
 
   const navigation = useNavigation()
-  const {productsCart, setProductsCart} = useContext(CartContext)
+  const {productsCart, setProductsCart, produtosComQuantidades, setProdutosComQuantidades} = useContext(CartContext)
   const route = useRoute();
 
   // console.log(productsCart)
 
   const [valorTotal, setValorTotal] = useState(0)
 
-  const [quantidades, setQuantidades] = useState([])
-
-  useEffect(() => {
-    setQuantidades([])
-    const produtosComQuantidades = productsCart.map(produto => ({
-      ...produto,
-      quantItem: 1,
-    }));
-
-    // Atualiza o estado de quantidades
-    setQuantidades(produtosComQuantidades);
-    
-  }, [productsCart]);
+  // console.log(valorTotal)
   
   useEffect(() => {
-    const novoValorTotal = quantidades.reduce((total, produto) => {
+    const novoValorTotal = productsCart.reduce((total, produto) => {
       return total + produto.price * produto.quantItem;
     }, 0);
   
@@ -41,17 +29,18 @@ export default function Carrinho() {
 
   const handleAdd = (produto) => {
     // Cria uma nova cópia do array quantidades
-    const novasQuantidades = quantidades.map(p => 
+    const novasQuantidades = productsCart.map(p => 
       p.id === produto.id ? { ...p, quantItem: p.quantItem + 1 } : p
     );
   
     // Atualiza o estado de quantidades com a nova cópia
-    setQuantidades(novasQuantidades);
+    setProductsCart(novasQuantidades);
   }
   
   const handleSub = (produto) => {
-    // Cria uma nova cópia do array quantidades
-    const novasQuantidades = quantidades.map(p => 
+    
+    
+    const novasQuantidades = productsCart.map(p => 
       p.id === produto.id ? { ...p, quantItem: p.quantItem - 1 } : p
     );
   
@@ -59,18 +48,18 @@ export default function Carrinho() {
     const quantidadesFiltradas = novasQuantidades.filter(p => p.quantItem > 0);
   
     // Atualiza o estado de quantidades com a nova cópia filtrada
-    setQuantidades(quantidadesFiltradas);
+    // setProdutosComQuantidades(quantidadesFiltradas);
     setProductsCart(quantidadesFiltradas)
   }
 
-
+  
   // console.log(quantidades)
 
   return (
 
     <View style={styles.container}>
       <FlatList
-        data={quantidades} // Array de dados a serem exibidos
+        data={productsCart} // Array de dados a serem exibidos
         style={styles.FlatList}
         renderItem={produto => {
           // {console.log(produto)}
@@ -91,7 +80,7 @@ export default function Carrinho() {
         keyExtractor={(item) => item.id} // Função para extrair uma chave única para cada item
       />
 
-      <Text>Total: {valorTotal}</Text>
+      <Text style={{fontSize: 24, marginBottom: 25, marginLeft: 15}}>Total: {valorTotal.toFixed(2)}</Text>
 
 
     </View>

@@ -9,35 +9,9 @@ const Home = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const {productsCart, setProductsCart} = useContext(CartContext)
+  const {productsCart, setProductsCart, produtosComQuantidades, products} = useContext(CartContext)
 
-  const [products, setProducts] = useState([
-    {
-      id: '1',
-      name: "Coca cola",
-      price: 19.90
-    },
-    {
-      id: '2',
-      name: "Chocolate",
-      price: 6.50
-    },
-    {
-      id: '3',
-      name: "Queijo 500g",
-      price: 15
-    },
-    {
-      id: '4',
-      name: "Batata frita",
-      price: 23.90
-    },
-    {
-      id: '5',
-      name: "Guarana lata",
-      price: 6.00
-    },
-  ])
+  
 
 
   const [numberProductsCart, setNumberProductsCart] = useState(0)
@@ -56,6 +30,7 @@ const Home = () => {
 
 
   const handleAddProduct = (produto) => {
+    console.log(produto)
     if(!productsCart.includes(produto)){
       setProductsCart([...productsCart, produto])
     }
@@ -80,7 +55,7 @@ const Home = () => {
 
       </View>
       <FlatList
-        data={products} // Array de dados a serem exibidos
+        data={produtosComQuantidades} // Array de dados a serem exibidos
         style={styles.FlatList}
         renderItem={produto => {
           return (
