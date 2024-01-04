@@ -7,24 +7,24 @@ import Home from './src/Pages/Home';
 const Stack = createNativeStackNavigator();
 
 
-
+// import store from './src/Redux/store';
 
 import { Provider } from 'react-redux';
 // import { createStore } from 'redux';
 
 
 
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore } from "@reduxjs/toolkit"
 import counterSlice from './src/Redux/Counter/CounterSlice'
 
 
 
 // Aqui é onde ficará armazenado os estados pelo redux
-const store = configureStore({
-  reducer: {
-    counter: counterSlice,
-  },
-})
+// const store = configureStore({
+//   reducer: {
+//     counter: counterSlice,
+//   },
+// })
 
 
 
@@ -42,15 +42,15 @@ const store = configureStore({
 
 export default function App() {
   return (
-
-    <NavigationContainer>
-        <Provider store={store}>
+    // deixei sem 
+    <Provider store={{}}>
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="About" component={About} />
         </Stack.Navigator>
-    </Provider>
       </NavigationContainer>
+    // </Provider>
   );
 }
 
